@@ -2,6 +2,10 @@ FROM ubuntu:latest
 LABEL maintainer="rpanneel"
 LABEL version="1.0"
 
+# Issue with tzdata in docker build
+ENV TZ=Europe/Brussels
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Install required packages
 RUN apt-get update && apt-get install -y \ 
   wget \
