@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 LABEL maintainer="rpanneel"
 LABEL version="1.0"
 
@@ -11,11 +11,12 @@ RUN apt-get update && apt-get install -y \
   wget \
   curl \
   git \
-  chromium-browser \
   build-essential
 
-# Set chrome environment variable for karma tests
-ENV CHROME_BIN=/usr/bin/chromium-browser
+# Install Chrome
+RUN curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
+RUN rm google-chrome-stable_current_amd64.deb 
 
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
